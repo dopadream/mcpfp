@@ -8,6 +8,8 @@
     import changeGradient from "@scripts/gradients";
     import generatePfp from "@scripts/generateProfile";
     import { mergeCanvases } from "@scripts/utils";
+    import { defaultSkin } from "$lib/rendering/mojang";
+    import { getUUID } from "$lib/rendering/mojang";
     import { page } from "$app/stores";
     import { goto } from "$app/navigation";
 
@@ -39,7 +41,7 @@
         profileCtx.scale(16, 16);
         profileCtx.imageSmoothingEnabled = false;
 
-        await generatePfp(`https://minotar.net/skin/${username || "I_Like_Cats__"}.png`, profileCtx);
+        await generatePfp(username || "dopadream", profileCtx);
     });
 
     async function savePicture() {
@@ -70,12 +72,12 @@
         username = username.replace(/[^a-z0-9_]/gi, "");
 
         try {
-            await generatePfp(`https://minotar.net/skin/${username}.png`, profileCtx);
+            await generatePfp(username, profileCtx);
 
             clearTimeout(timeout);
             timeout = setTimeout(async () => {
-                await generatePfp(`https://minotar.net/skin/${username}.png`, profileCtx);
-                goto(`/generate?ign=${username}`, { replaceState: true, keepfocus: true });
+                await generatePfp(username, profileCtx);
+                goto(`/generate?ign=${username}`, { replaceState: true, keepfocus: true});
             }, 300);
         } catch (e) {
             await generatePfp(null, profileCtx);
