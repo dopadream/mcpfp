@@ -40,7 +40,7 @@ async function generateAlexPfp(username: string, ctx: any) {
 		if (skinModel == "default") {
 		if (skinImage.height === 32) {
 			ctx.drawImage(skinImage, 8, 8, 8, 8, 8, 3, 8, 8); // Head (bottom layer)
-			ctx.drawImage(skinImage, 4, 8, 4, 8, 4, 3, 4, 8); // Head Side (bottom layer)
+			ctx.drawImage(skinImage, 4, 8, 4, 8, 4, 3, 4, 4); // Head Side (bottom layer)
 			ctx.drawImage(skinImage, 44, 20, 3, 9, 15, 11, 3, 9); // Arm Right (bottom layer)
 			ctx.drawImage(skinImage, 20, 20, 7, 9, 8, 11, 7, 9); // Chest (Bottom layer)
 			ctx.drawImage(skinImage, 44, 20, 4, 9, 4, 11, 4, 9); // Arm Left (bottom layer)
@@ -52,20 +52,19 @@ async function generateAlexPfp(username: string, ctx: any) {
 		} else {
 			// * BOTTOM LAYER
 			ctx.drawImage(skinImage, 8, 8, 8, 8, 8, 3, 8, 8); // Head (bottom layer)
-			ctx.drawImage(skinImage, 4, 8, 4, 8, 4, 3, 4, 8); // Head Side (bottom layer)
-			ctx.drawImage(skinImage, 36, 52, 3, 9, 15, 11, 3, 9); // Arm Right (bottom layer)
+			ctx.drawImage(skinImage, 4, 8, 4, 8, 6, 3, 2, 8); // Head Side (bottom layer)
+			ctx.drawImage(skinImage, 36, 52, 4, 9, 15, 11, 4, 9); // Arm Right (bottom layer)
 			ctx.drawImage(skinImage, 20, 20, 7, 9, 8, 11, 7, 9); // Chest (Bottom layer)
 			ctx.drawImage(skinImage, 44, 20, 4, 9, 4, 11, 4, 9); // Arm Left (bottom layer)
-			ctx.drawImage(skinImage, 41, 52, 3, 9, 1, 11, 3, 9); // Arm Left Side (bottom layer)
+			ctx.drawImage(skinImage, 41, 52, 3, 9, 2.5, 11, 1.5, 9); // Arm Left Side (bottom layer)
 
 			// * TOP LAYER
 			ctx.drawImage(skinImage, 40, 8, 8, 8, 8, 3, 8, 8); // Head (top layer)
-			ctx.drawImage(skinImage, 32, 8, 3, 8, 3, 3, 3, 8); // Head Side (top layer)
-			ctx.drawImage(skinImage, 37, 8, 3, 8, 6, 3, 3, 8); // Head Side 2 (top layer)
-			ctx.drawImage(skinImage, 44, 36, 3, 9, 15, 11, 3, 9); // Arm Right (top layer)
+			ctx.drawImage(skinImage, 37, 8, 3, 8, 6, 3, 2, 8); // Head Side 2 (top layer)
+			ctx.drawImage(skinImage, 44, 36, 4, 9, 15, 11, 4, 9); // Arm Right (top layer)
 			ctx.drawImage(skinImage, 20, 36, 7, 9, 8, 11, 7, 9); // Chest (top layer)
 			ctx.drawImage(skinImage, 52, 52, 4, 9, 4, 11, 4, 9); // Arm Left (top layer)
-			ctx.drawImage(skinImage, 49, 52, 3, 9, 1, 11, 3, 9); // Arm Left Side (top layer)
+			ctx.drawImage(skinImage, 49, 52, 3, 9, 2.5, 11, 1.5, 9); // Arm Left Side (top layer)
 			ctx.drawImage(shading, 0, 0, 20, 20);
 		}
 	} else if (skinModel == "slim")  {
