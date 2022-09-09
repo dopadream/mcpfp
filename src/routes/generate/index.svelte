@@ -113,7 +113,7 @@
     $lightMode-background-color-dark: #fff;
 
     #wrapper {
-        height: calc(100vh - 50rem - 5rem);
+        height: calc(100vh - 20rem - 5rem);
         width: 100%;
 
         display: flex;
@@ -126,7 +126,7 @@
         width: auto;
         height: auto;
 
-        margin-left: 115rem;
+        margin-left: 100rem;
         margin-bottom: 5rem;
 
         #uiWrapper {
