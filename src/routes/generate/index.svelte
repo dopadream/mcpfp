@@ -5,7 +5,6 @@
     import ArrowButton from "@components/ArrowButton.svelte";
     import Popup from "@components/Popup.svelte";
     import SEO from "@components/SEO.svelte";
-    import changeGradient from "@scripts/gradients";
     import generatePfp from "@scripts/generateProfile";
     import { mergeCanvases } from "@scripts/utils";
     import { defaultSkin } from "$lib/rendering/mojang";
@@ -18,21 +17,14 @@
     let username = "";
     let firefoxPopup = false;
 
-    let gradientCanvas: HTMLCanvasElement;
-    let gradientCtx: CanvasRenderingContext2D;
+
     let profileCanvas: HTMLCanvasElement;
     let profileCtx: CanvasRenderingContext2D;
     onMount(async () => {
-        if (!urlSearchParamIGN) goto("/generate?ign=I_Like_Cats__", { replaceState: false });
+        if (!urlSearchParamIGN) goto("/generate?ign=enbnuuy", { replaceState: false });
         else username = urlSearchParamIGN.replace(/[^a-z0-9_]/gi, "");
 
-        gradientCanvas = window.document.getElementById("gradientCanvas") as HTMLCanvasElement;
-        gradientCanvas.width = 300;
-        gradientCanvas.height = 300;
-        gradientCtx = gradientCanvas.getContext("2d");
-        gradientCtx.scale(16, 16);
-        gradientCtx.imageSmoothingEnabled = false;
-        changeGradient(gradientCtx);
+
 
         profileCanvas = window.document.getElementById("profileCanvas") as HTMLCanvasElement;
         profileCanvas.width = 300;
@@ -45,7 +37,7 @@
     });
 
     async function savePicture() {
-        const merged = await mergeCanvases([gradientCanvas, profileCanvas]);
+        const merged = await mergeCanvases([profileCanvas]);
         const link = document.createElement("a");
         link.download = `mcpfp - ${username || "unknown"}.png`;
         link.href = merged.toDataURL();
@@ -59,7 +51,7 @@
                 setTimeout(() => (firefoxPopup = false), 5000);
             }
         } else {
-            const merged = await mergeCanvases([gradientCanvas, profileCanvas]);
+            const merged = await mergeCanvases([profileCanvas]);
             merged.toBlob(function (blob) {
                 const item = new ClipboardItem({ "image/png": blob });
                 navigator.clipboard.write([item]);
@@ -94,14 +86,11 @@
         </div>
 
         <div id="uiWrapper">
-            <ArrowButton on:click={() => changeGradient(gradientCtx, "left")} orientation="left" />
 
             <div id="canvasWrapper">
-                <canvas id="gradientCanvas" />
                 <canvas id="profileCanvas" />
             </div>
 
-            <ArrowButton on:click={() => changeGradient(gradientCtx, "right")} orientation="right" />
         </div>
 
         <div id="SaveButtonWrapper">
@@ -124,7 +113,7 @@
     $lightMode-background-color-dark: #fff;
 
     #wrapper {
-        height: calc(100vh - 9rem - 5rem);
+        height: calc(100vh - 50rem - 5rem);
         width: 100%;
 
         display: flex;
@@ -137,7 +126,7 @@
         width: auto;
         height: auto;
 
-        margin-left: 5rem;
+        margin-left: 115rem;
         margin-bottom: 5rem;
 
         #uiWrapper {
@@ -151,15 +140,15 @@
             z-index: 5;
 
             #profileCanvas {
-                position: absolute;
+                position: static;
 
-                left: 0;
+                left:0;
                 top: 0;
             }
 
             canvas {
-                width: 300px;
-                height: 300px;
+                width: 600px;
+                height: 600px;
 
                 background-color: transparent;
                 filter: drop-shadow(7px 7px 4px rgba(0, 0, 0, 0.25));
