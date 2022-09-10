@@ -1,41 +1,12 @@
 <script lang="ts">
-    const names = ["SmarteOwl", "wilbursoot", "fundy", "elii_bx", "purpled", "tommyinnit"];
-    const name = names[Math.floor(Math.random() * names.length)];
 
-    function typewriter(node, { speed = 1 }) {
-        const text = node.textContent;
-        const duration = text.length / (speed * 0.01);
-
-        return {
-            duration,
-            tick: (t) => {
-                const i = Math.trunc(text.length * t);
-                node.textContent = text.slice(0, i);
-            },
-        };
-    }
 </script>
 
 <svelte:head>
-    <meta name="title" content="minecraftpfp.com" />
+    <meta name="title" content="playeravatarfork.xyz" />
     <meta name="description" content="Generate unlimited Minecraft profile pictures for free!" />
 </svelte:head>
 
-<div id="container">
-    <div id="text">
-        <a href="/generate">
-            {#await Promise.resolve() then}
-                <h1 in:typewriter>Generate yours!</h1>
-            {/await}
-        </a>
-    </div>
-
-    <div id="examples">
-        <img src="/PFP/I_Like_Cats__.png" alt="example 1" />
-        <img src="/PFP/E_Like_Cats__.png" alt="example 2" />
-        <img src="/PFP/{name}.png" alt="example 3" />
-    </div>
-</div>
 
 <style lang="scss">
     $coloured-text: #da4167;

@@ -1,18 +1,8 @@
-async function loadImage(url: string): Promise<HTMLImageElement> {
-	return new Promise((resolve, reject) => {
-		const img = new Image()
-		img.crossOrigin = "Anonymous";
-		img.src = url
-		img.onload = () => {
-			resolve(img)
-		}
-		img.onerror = e => {
-			reject(e)
-		}
-	})
-}
+import type { Canvas } from "canvas";
 
-async function mergeCanvases(canvases: HTMLCanvasElement[]) {
+
+
+async function mergeCanvases(canvases: Canvas[]) {
 	const canvas = document.createElement("canvas");
 	canvas.width = canvases[0].width;
 	canvas.height = canvases[0].height;
@@ -30,6 +20,5 @@ async function mergeCanvases(canvases: HTMLCanvasElement[]) {
 }
 
 export {
-	loadImage,
 	mergeCanvases
 }

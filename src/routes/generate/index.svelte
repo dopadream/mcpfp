@@ -1,4 +1,6 @@
+
 <script lang="ts">
+    
     // @ts-ignore else svelte gets errored? dk why tbh
     import { onMount } from "svelte";
     import SaveButton from "@components/SaveButton.svelte";
@@ -11,7 +13,8 @@
     import { getUUID } from "$lib/rendering/mojang";
     import { page } from "$app/stores";
     import { goto } from "$app/navigation";
-
+    import { Canvas, createCanvas, loadImage } from "canvas";
+    import { claim_text } from "svelte/internal";
     const urlSearchParamIGN = $page.url.searchParams.get("ign") || null;
 
 
@@ -22,49 +25,29 @@
     let username = "";
     let firefoxPopup = false;
 
-    function dataURItoBlob(dataURI) {
-        // convert base64 to raw binary data held in a string
-        // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-        var byteString = atob(dataURI.split(",")[1]);
 
-        // separate out the mime component
-        var mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
+    let profileCanvas = createCanvas(256, 256)
+    let profileCtx = profileCanvas.getContext('2d')
 
-        // write the bytes of the string to an ArrayBuffer
-        var ab = new ArrayBuffer(byteString.length);
-
-        // create a view into the buffer
-        var ia = new Uint8Array(ab);
-
-        // set the bytes of the buffer to the correct values
-        for (var i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-        }
-
-        // write the ArrayBuffer to a blob, and you're done
-        var blob = new Blob([ab], { type: mimeString });
-        return blob;
-    }
-
-    let profileCanvas: HTMLCanvasElement;
-    let profileCtx: CanvasRenderingContext2D;
     onMount(async () => {
         if (!urlSearchParamIGN)
             goto("/generate?ign=enbnuuy", { replaceState: false });
         else username = urlSearchParamIGN.replace(/[^a-z0-9_]/gi, "");
 
-        profileCanvas = window.document.getElementById(
-            "profileCanvas"
-        ) as HTMLCanvasElement;
-        profileCanvas.width = 300;
-        profileCanvas.height = 300;
-        profileCtx = profileCanvas.getContext("2d");
-        profileCtx.scale(16, 16);
-        profileCtx.imageSmoothingEnabled = false;
+
+        var can = document.querySelector("#profileCanvas");
+
+        console.log("Canvas before JS: ", can.width, "x", can.height);
+
+        can.width = 256;
+        can.height = 256;
+
+        console.log("Canvas after JS: ", can.width, "x", can.height);
 
         await generatePfp(username || "dopadream", profileCtx);
 
-        redirectToPicture();
+
+    
 
     });
 
@@ -91,17 +74,7 @@
     //     }
     // }
 
-    async function redirectToPicture() {
-        const merged = await mergeCanvases([profileCanvas]);
-        const url = merged.toDataURL();
-        dataURItoBlob(url);
-            merged.toBlob(function (blob) {
-                const objectURL = URL.createObjectURL(blob);
-                window.location.replace(objectURL);
-            });
-        }
 
-    
 
 
     // let timeout;
